@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   RightContainer,
   Wrapper,
@@ -14,7 +14,34 @@ import { IoIosCloudDownload } from "react-icons/io";
 import { FaLessThan,FaGreaterThan} from "react-icons/fa";
 import Card from './Card/index'
 
+const url = "https://randomuser.me/api/?results=30";
+
 export default function Container() {
+  const [users, setUsers] = useState([])
+  const[loading, setLoading]=useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
+  const[usersPerPage, setusersPerPage]=useState(3)
+  const   fetchUsers = async () => {
+    try {
+      const response = await fetch(url);
+      setLoading(false)
+      const data = await response.json();
+      const {results}=data
+      setUsers(results)
+      console.log(results);
+    } catch(error){
+      console.log(error)
+    }
+    
+  }
+  useEffect(() => {
+    fetchUsers()
+  }, [])
+  // Get posts on each page
+  const indexofLastUser = currentPage * usersPerPage 
+  const indexofFirstUser = indexofLastUser - currentPage
+  const currentUser = users.slice(indexofFirstUser, indexofLastUser);
+  console.log(currentUser);
     return (
       <RightContainer>
         <Wrapper>
@@ -51,9 +78,8 @@ export default function Container() {
                 </div>
           </div>
 
-          <Card/>
-          <Card/>
-          <Card/>
+          <Card key={users.name} users={users} loading={loading}/>
+
           <Download><IoIosCloudDownload /><Paragraph color="fff" size=".8rem" opacity="1" weight="600" space=".8rem">Download results</Paragraph></Download>
           <Pages primary ><FaLessThan/></Pages>
           <Pages ><FaGreaterThan/></Pages>

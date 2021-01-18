@@ -3,7 +3,7 @@ import { MainContainer } from '../Components.style'
 import Left from '../LeftContainer/index'
 import Right from '../RightContainer/index'
 
-export default function Wrapper() {
+export default function Dashboard() {
     return (
         <MainContainer>
             <Left /> 

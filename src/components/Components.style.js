@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled,{keyframes} from 'styled-components'
 export const MainContainer = styled.div`
   display: flex;
   width: 100vw;
@@ -143,7 +143,8 @@ export const Buttons = styled.button.attrs((props) => ({
   border: none;
   color: #fff;
   text-align: center;
-  &.users-button:hover {
+  cursor:pointer;
+  &.users-button:active {
     transform: scale(1.15);
     transition: 0.5s;
   }
@@ -161,8 +162,8 @@ export const ProfileCard = styled.div`
   justify-content:space-around;
   width: 100%;
   overflow:none;
-  height:20%;
-  margin:1rem 0rem 2rem 0rem;
+  height:9rem;
+  margin:1rem 0rem 1.5rem 0rem;
 `;
 export const NextButton = styled.button`
   width: ${(props) => (props.primary ? "3rem" : "50px")};
@@ -172,15 +173,17 @@ export const NextButton = styled.button`
   border-radius: 13px;
   opacity: 1;
   border: none;
-  margin-top:10%;
-  outline:none;
+  margin-top: 10%;
+  outline: none;
   color: #fff;
   font-size: 1.3rem;
   align-self: center;
-  &.users-button:hover {
+  cursor:pointer;
+  &.users-button:active {
     transform: scale(1.15);
     transition: 0.5s;
   }
+  
 `;
 export const Pages=styled(NextButton)`
 position:absolute;
@@ -194,11 +197,30 @@ color:${(props)=>(props.primary? "#000":"fff")};
 box-shadow:none;
 font-size:.7rem;
 `
-export const ImageHolder = styled.div`
+export const ImageHolder = styled.img`
   border: 8px solid #75d6d1;
   border-radius:50%;
   width:4rem;
   height:4rem;
   opacity: 1;
 `;
+
+const spin = keyframes`
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+`;
+
+export const Loader = styled.div`
+  border: 0.2em solid rgba(0, 0, 0, 0.1);
+  border-top: 0.2em solid #767676;
+  border-radius: 50%;
+  width: 2.28571429rem;
+  height: 2.28571429rem;
+  animation: ${spin} 0.6s linear infinite;
+`;
+
 
